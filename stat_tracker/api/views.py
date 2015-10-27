@@ -13,6 +13,7 @@ class ActivityViewSet(viewsets.ModelViewSet):
 
 >>>>>>> 7f99ef66c1d8e03a64c96c83d3eb364fbdc71e4e
 
+<<<<<<< HEAD
 def basic(request):
     return render(request, 'api/basic.html')
 
@@ -22,3 +23,7 @@ def create(self, validated data):
 class UserViewSet(viewsets.ModelViewset):
     queryset = User.objects.all()
     serilalizer_class = UserSerializer
+=======
+# def basic(request):
+#     return render(request, 'api/basic.html')
+>>>>>>> a9fae436e5f3fea0e759eb459060e6e8be3e6fc4
