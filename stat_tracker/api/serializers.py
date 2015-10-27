@@ -13,3 +13,8 @@ class ActivitySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Activity
         fields = ('id', 'title', 'timestamp', 'data')
+
+# class DataPointSerializer(serializers.HyperlinkedModelSerializer):
+#     class Meta:
+#         model = DataPoint
+#         fields = ('id', 'value', 'timestamp', 'activity')

@@ -20,3 +20,6 @@ class DataPointViewSet(viewsets.ModelViewSet):
 
 def basic(request):
     return render(request, 'api/basic.html')
+# class DataPointViewSet(viewsets.ModelViewSet):
+#     queryset = DataPoint.objects.all()
+#     serializer_class = DataPointSerializer
