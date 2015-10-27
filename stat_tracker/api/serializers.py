@@ -4,4 +4,4 @@ from .models import Activity
 class ActivitySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Activity
-        fields = ('id', 'title','timestamp','datapoints')
+        fields = ('id', 'title', 'timestamp', 'datapoints')
