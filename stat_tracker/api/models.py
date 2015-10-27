@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class Activity(models.Model):
     title = models.CharField(max_length=150)
     timestamp = models.DateField()
-    user = models.ForeignKey(User, related_name='activities', default=User.objects.get(username='admin'))
+    user = models.ForeignKey(User, related_name='activities')
     units = models.CharField(max_length=15, default='units')
 
     def __str__(self):

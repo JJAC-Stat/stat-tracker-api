@@ -59,3 +59,12 @@ def generate_datapoints():
                           activity = random.choice(Activity.objects.all()))
         datapoint.save()
         print(datapoint)
+
+def get_all():
+    User.objects.all().delete()
+    Activity.objects.all().delete()
+    DataPoint.objects.all().delete()
+    
+    generate_users()
+    generate_activities()
+    generate_datapoints()
