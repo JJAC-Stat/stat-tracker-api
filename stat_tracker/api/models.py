@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class Activity(models.Model):
     title = models.CharField(max_length=150)
     timestamp = models.DateField()
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, related_name='activities')
     units = models.CharField(max_length=15, null=True)
 
 class DataPoint(models.Model):

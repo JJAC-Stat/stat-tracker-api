@@ -10,5 +10,5 @@ class ActivityViewSet(viewsets.ModelViewSet):
 
 
 
-def basic(request):
-    return render(request, 'api/basic.html')
+# def basic(request):
+#     return render(request, 'api/basic.html')
