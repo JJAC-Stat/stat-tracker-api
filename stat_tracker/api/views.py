@@ -9,8 +9,8 @@ class ActivityViewSet(viewsets.ModelViewSet):
     queryset = Activity.objects.all()
     serializer_class = ActivitySerializer
 
-    def basic(request):
-        return render(request, 'api/basic.html')
+def basic(request):
+    return render(request, 'api/basic.html')
 
 
 class DataPointViewSet(viewsets.ModelViewSet):

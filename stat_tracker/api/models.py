@@ -6,6 +6,7 @@ class Activity(models.Model):
     title = models.CharField(max_length=150)
     timestamp = models.DateField()
     user = models.ForeignKey(User, related_name='activities')
+
     units = models.CharField(max_length=15, null=True)
 
     def __str__(self):

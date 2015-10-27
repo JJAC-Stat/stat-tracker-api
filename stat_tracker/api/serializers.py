@@ -8,8 +8,8 @@ class DataPointSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ActivitySerializer(serializers.HyperlinkedModelSerializer):
-    DataPoint_set = DataPointSerializer(many=True, read_only=True) #nested list
+    data = DataPointSerializer(many=True, read_only=True) #nested list
 
     class Meta:
         model = Activity
-        fields = ('id', 'title', 'timestamp', 'datapoints')
+        fields = ('id', 'title', 'timestamp', 'data')
