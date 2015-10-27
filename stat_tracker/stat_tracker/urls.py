@@ -16,10 +16,11 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from api.views import ActivityViewSet
-from rest_framework_nested import routers
+
+from rest_framework.routers import DefaultRouter
 
 
-router = routers.SimpleRouter()
+router = DefaultRouter()
 router.register(r'activities', ActivityViewSet)
 
 

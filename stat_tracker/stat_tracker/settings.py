@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'stat_tracker',
         'USER': 'stat_tracker',
-        'PASSWORD': 'password',
+        'PASSWORD': 'stat_tracker',
         'HOST': '',
         'PORT': '',
     }
