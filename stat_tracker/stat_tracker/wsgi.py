@@ -16,7 +16,3 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "stat_tracker.settings")
 
 application = DjangoWhiteNoise(get_wsgi_application())
 application = DjangoWhiteNoise(application)
-
-from dj_static import Cling
-
-application = Cling(get_wsgi_application())
