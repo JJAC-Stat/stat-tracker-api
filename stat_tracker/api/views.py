@@ -9,10 +9,14 @@ class ActivityViewSet(viewsets.ModelViewSet):
     queryset = Activity.objects.all()
     serializer_class = ActivitySerializer
 
-def basic(request):
-    return render(request, 'api/basic.html')
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 
 class DataPointViewSet(viewsets.ModelViewSet):
     queryset = DataPoint.objects.all()
     serializer_class = DataPointSerializer
+
+
+def basic(request):
+    return render(request, 'api/basic.html')
