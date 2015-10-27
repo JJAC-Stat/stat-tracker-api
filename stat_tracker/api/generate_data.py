@@ -1,4 +1,8 @@
-def generate_datapoints():
+from django.contrib.auth.models import User
+from api.models import Activity, DataPoint
+
+
+def generate_users():
     from faker import Faker
     fake = Faker()
     for _ in range(50):
@@ -8,22 +12,31 @@ def generate_datapoints():
 
 
 
-def generate_datapoints():
+def generate_activities():
     import json
     from faker import Faker
     import random
     fake = Faker()
     activities=[]
+    activity_list = ['running', 'biking', 'walking',
+                'double dutch', 'cook a meal', 'have a snack',
+                'walk the dog', 'watch a movie', 'bake a cake',
+                'order pizza']
     for x in range(100):
-        activity = {'fields':{'title':fake.text(max_nb_chars=50),
-                            'timestamp':str(fake.date_time_this_year()),
-                            'user': random.choice(range(1,51)),
-                            },
-                    'model':'api.Activity',}
-        activities.append(activity)
+    #     activity = {'fields':{'title':random.choice(activity_list),
+    #                         'timestamp':str(fake.date_time_this_year())[:10],
+    #                         'user': random.choice(User.objects.all())
+    #                         },
+    #                 'model':'api.Activity',}
+    #     activities.append(activity)
+    #     print(activity)
+    # with open('activities.json', 'w') as f:
+    #     f.write(json.dumps(activities))
+        activity = Activity(title=random.choice(activity_list),
+                             timestamp=str(fake.date_time_this_year())[:10],
+                             user= random.choice(User.objects.all()))
+        activity.save()
         print(activity)
-    with open('./api/fixtures/activities.json', 'w') as f:
-        f.write(json.dumps(activities))
 
 def generate_datapoints():
     import json
@@ -32,13 +45,17 @@ def generate_datapoints():
     fake = Faker()
     datapoints = []
     for _ in range(500):
-        datapoint = {'fields':{'value':randint(1,100),
-                            'timestamp':str(fake.date_time_this_year()),
-                            'activity': random.choice(range(1,51)),
-                            'question':random.choice(range(1,100))
-                            },
-                    'model':'api.DataPoint',}
+    #     datapoint = {'fields':{'value':random.randint(1,100),
+    #                         'timestamp':str(fake.date_time_this_year())[:10],
+    #                         'activity': random.choice(range(1,100))
+    #                         },
+    #                 'model':'api.DataPoint',}
+    #     print(datapoint)
+    #     datapoints.append(datapoint)
+    # with open('datapoints.json', 'w') as f:
+    #     f.write(json.dumps(datapoints))
+        datapoint = DataPoint(value=random.randint(1,100),
+                          timestamp=str(fake.date_time_this_year())[:10],
+                          activity = random.choice(Activity.objects.all()))
+        datapoint.save()
         print(datapoint)
-        answers.append(datapoint)
-    with open('./api/fixtures/datapoints.json', 'w') as f:
-        f.write(json.dumps(datapoints))
