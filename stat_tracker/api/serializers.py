@@ -6,16 +6,16 @@ from django.contrib.auth.models import User
 class DataPointSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = DataPoint
-        fields = ('activity', 'timestamp', 'value')
+        fields = ('id', 'activity', 'timestamp', 'value')
 
 
 class ActivitySerializer(serializers.HyperlinkedModelSerializer):
-    datapoints = serializers.PrimaryKeyRelatedField(many=True, read_only=True) #nested list
+    datapoints = DataPointSerializer(many=True, read_only=True) #nested list
     user = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
 
     class Meta:
         model = Activity
-        fields = ('id', 'title', 'timestamp', 'datapoints', 'user')
+        fields = ('id', 'title', 'timestamp', 'user', 'datapoints')
 
 # class DataPointSerializer(serializers.HyperlinkedModelSerializer):
 #     class Meta:
