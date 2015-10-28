@@ -39,7 +39,9 @@ class DataPointViewSet(viewsets.ModelViewSet):
         # return {'question_pk': self.kwargs['question_pk']}
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+          activity_id = self.kwargs['activity_id']
+          get_object_or_404(Activity, pk=activity_id)
+          serializer.save(activity=Activity.objects.get(pk=activity_id))
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()

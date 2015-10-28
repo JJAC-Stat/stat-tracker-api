@@ -15,6 +15,7 @@ class DataPoint(models.Model):
     activity = models.ForeignKey(Activity, related_name='datapoints')
     timestamp = models.DateField()
     value = models.PositiveSmallIntegerField()
+    #user = models.ForeignKey(User, related_name='datapoints')
 
     def __str__(self):
         return '{}:{} @ {}'.format(self.activity, self.value, self.timestamp)
