@@ -13,7 +13,8 @@ class ActivityViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-    # def get_queryset(self):
+    def get_queryset(self):
+        pass
     #     activity_id = self.kwargs['activity_pk']
     #     get_object_or_404(Activity, pk=activity_id)
     #     return self.queryset.filter(activity_id=activity_id)
