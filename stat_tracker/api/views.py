@@ -1,10 +1,12 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from .models import Activity, DataPoint
 from .serializers import ActivitySerializer, DataPointSerializer, UserSerializer
 from rest_framework.views import APIView
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+
 
 class ActivityViewSet(viewsets.ModelViewSet):
     queryset = Activity.objects.all()
@@ -27,19 +29,25 @@ class DataPointViewSet(viewsets.ModelViewSet):
     queryset = DataPoint.objects.all()
     serializer_class = DataPointSerializer
 
-    def get_queryset(self):
-        activity_id = self.kwargs['activity_id']
-        get_object_or_404(Activity, pk=activity_id)
-        return self.queryset.filter(activity=activity_id)
-
-    def get_serializer_context(self):
-        context = super().get_serializer_context().copy()
-        context['activity_id'] = self.kwargs['activity_id']
-        return context
-        # return {'question_pk': self.kwargs['question_pk']}
+    # def get_queryset(self):
+    #     activity_id = self.kwargs['activity_id']
+    #     get_object_or_404(Activity, pk=activity_id)
+    #     return self.queryset.filter(activity_id=activity_id)
+    #
+    # def get_serializer_context(self):
+    #     context = super().get_serializer_context().copy()
+    #     context['activity_id'] = self.kwargs['activity_id']
+    #     return context
+    #     # return {'question_pk': self.kwargs['question_pk']}
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+class DataPointlistViewSet(generics.ListCreateAPIView):
+    serializer_class = DataPointSerializer
+
+    def initial(self, request, *args, **kwargs):
+        self.activity = Activity.objects.
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -49,3 +57,6 @@ class UserViewSet(viewsets.ModelViewSet):
 
 def basic(request):
     return render(request, 'api/basic.html')
+# class DataPointViewSet(viewsets.ModelViewSet):
+#     queryset = DataPoint.objects.all()
+#     serializer_class = DataPointSerializer
