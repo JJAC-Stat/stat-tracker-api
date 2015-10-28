@@ -2,13 +2,17 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from .models import Activity, DataPoint
 from .serializers import ActivitySerializer, DataPointSerializer, UserSerializer
-from rest_framework.views import APIView
+from rest_framework import viewsets, permissions
+from .permissions import IsUser
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
+
 
 class ActivityViewSet(viewsets.ModelViewSet):
     queryset = Activity.objects.all()
     serializer_class = ActivitySerializer
+
+    permission_classes = IsUser
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -24,9 +28,12 @@ class ActivityViewSet(viewsets.ModelViewSet):
     #     context['activity_pk'] = self.kwargs['activity_pk']
     #     return context
 
+
 class DataPointViewSet(viewsets.ModelViewSet):
     queryset = DataPoint.objects.all()
     serializer_class = DataPointSerializer
+
+    permission_classes = IsUser
 
     def get_queryset(self):
         activity_id = self.kwargs['activity_id']
@@ -42,7 +49,9 @@ class DataPointViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
+
 class UserViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsUser,)
     queryset = User.objects.all()
     serializer_class = UserSerializer
     lookup_field = 'username'
