@@ -22,7 +22,8 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register(r'activities', ActivityViewSet)
-router.register(r'datapoints', DataPointViewSet)
+router.register(r'activities/(?P<activity_id>\d*)/stats', DataPointViewSet)
+#router.register(r'datapoints', DataPointViewSet)
 router.register(r'users', UserViewSet)
 
 
