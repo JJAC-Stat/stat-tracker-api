@@ -16,9 +16,8 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from api.views import ActivityViewSet, DataPointViewSet, UserViewSet
-
+from api.views import month_chart
 from rest_framework.routers import DefaultRouter
-
 
 router = DefaultRouter()
 router.register(r'activities', ActivityViewSet)
@@ -33,4 +32,5 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls')),
     url(r'^docs/', include('rest_framework_swagger.urls')),
     url(r'^$', 'api.views.basic',name='basic' ),
+    url(r'^api/activities/(?P<activity_id>\d+)/graph', month_chart)
 ]

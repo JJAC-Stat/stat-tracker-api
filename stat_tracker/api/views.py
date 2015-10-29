@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from rest_framework import viewsets
 from .models import Activity, DataPoint
 from .serializers import ActivitySerializer, DataPointSerializer, UserSerializer
@@ -8,6 +8,11 @@ from django.shortcuts import get_object_or_404
 from .permissions import IsAskerOrReadOnly, IsReadOnly
 from rest_framework.decorators import detail_route, api_view
 from rest_framework import viewsets, permissions, status
+from datetime import datetime, timedelta
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from django.utils import timezone
+
 
 class ActivityViewSet(viewsets.ModelViewSet):
     queryset = Activity.objects.all()
@@ -64,6 +69,26 @@ def whoami(request):
         return Response(serializer.data)
     else:
         return Response('', status=status.HTTP_404_NOT_FOUND)
+
+
+def month_chart(request, activity_id):
+    start = datetime.date(datetime.today()) - timedelta(days=30)
+    data = DataPoint.objects.filter(activity=activity_id, timestamp__gte=start)
+    dates = [dat.timestamp for dat in data]
+    values = [dat.value for dat in data]
+    figure = plt.figure(figsize=(6,8))
+    plt.bar(dates, values)
+    plt.title('Activity Values for Last 30 Days')
+    plt.xlabel("Dates")
+    plt.ylabel("Values")
+    plt.xlim(start, datetime.date(datetime.today()))
+    plt.xticks(rotation=30)
+    canvas = FigureCanvas(figure)
+    response = HttpResponse(content_type='image/png')
+    canvas.print_png(response)
+    return response
+
+
 
 def basic(request):
     return render(request, 'api/basic.html')
