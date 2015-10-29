@@ -12,7 +12,7 @@ class ActivityViewSet(viewsets.ModelViewSet):
     queryset = Activity.objects.all()
     serializer_class = ActivitySerializer
 
-    permission_classes = IsUser
+    #permission_classes = IsUser
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -33,7 +33,7 @@ class DataPointViewSet(viewsets.ModelViewSet):
     queryset = DataPoint.objects.all()
     serializer_class = DataPointSerializer
 
-    permission_classes = IsUser
+    #permission_classes = IsUser
 
     def get_queryset(self):
         activity_id = self.kwargs['activity_id']
@@ -51,7 +51,7 @@ class DataPointViewSet(viewsets.ModelViewSet):
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    permission_classes = (IsUser,)
+    permission_classes = IsUser
     queryset = User.objects.all()
     serializer_class = UserSerializer
     lookup_field = 'username'
