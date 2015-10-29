@@ -15,7 +15,7 @@ class ActivitySerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Activity
-        fields = ('id', 'title', 'timestamp', 'user', 'datapoints')
+        fields = ('id', 'user', 'title', 'timestamp', 'datapoints')
 
 # class DataPointSerializer(serializers.HyperlinkedModelSerializer):
 #     class Meta:
